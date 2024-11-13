@@ -169,6 +169,9 @@ int install_payload(struct thread *td, struct install_payload_args* args)
 	kmem[1] = 0x01;
 	kmem[2] = 0xC3;
 
+        // spoof sdk_version - enable vr
+        *(uint32_t *)(kernel_base + sdk_version_patch) = FAKE_FW_VERSION;
+		
 	// Enable *all* debugging logs (in vprintf)
 	// Patch by: SiSTRo
 	kmem = (uint8_t *)&kernel_base[enable_debug_log_patch];
